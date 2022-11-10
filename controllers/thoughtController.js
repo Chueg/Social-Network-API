@@ -51,4 +51,42 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  // Add an friend to a user
+  addReaction(req, res) {
+    console.log('You are adding an reaction');
+    
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
+      { new: true }
+    )
+      .then((thought) =>
+        !thought
+          ? res
+              .status(404)
+              .json({ message: 'No thought with that ID :(' })
+          : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+  // Remove friend from a user
+  deleteReaction(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: {reactionId: req.params.reactionId} } },
+      { new: true }
+    )
+      .then((thought) =>
+
+        !thought
+          ? res
+              .status(404)
+              .json({ message: 'No thought found with that ID :(' })
+          : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 };
+
+
+
