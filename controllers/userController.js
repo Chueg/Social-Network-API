@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongoose').Types;
+
 const { User, Thought } = require('../models');
 
 module.exports = {
@@ -60,9 +60,9 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No such user exists' })
-          : Thought.findOneAndUpdate(
+          : Thought.updateMany(
               { users: req.params.userId },
-              { $pull: { users: req.params.userId } },
+              { $pull: { username: user.username } },
               { new: true }
             )
       )
