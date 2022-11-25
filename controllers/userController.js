@@ -54,25 +54,17 @@ module.exports = {
     )
     .catch((err) => res.status(500).json(err));
   },
-  // Delete a user and remove them from the thought
   deleteUser(req, res) {
-    User.findOneAndRemove({ _id: req.params.userId })
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: 'No such user exists' })
-          : Thought.updateMany(
-              { users: req.params.userId },
-              { $pull: { username: user.username } },
-              { new: true }
-            )
-      )
-      .then((thought) =>
-        !thought
-          ? res.status(404).json({
-              message: 'User deleted, but no thoughts found',
-            })
-          : res.json({ message: 'User successfully deleted' })
-      )
+    User.findOneAndDelete({ _id: req.params.userId })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).json({ message: 'No user with this id!' });
+        }
+        return Thought.deleteMany({ _id: { $in: user.thoughts } });
+      })
+      .then(() => {
+        res.json({ message: 'Deleted user and all thoughts' });
+      })
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
