@@ -35,6 +35,11 @@ Use insomnia to access routes.
 
 The best way to interact with this project is to use insomnia to access routes and edit the database.
 
+Friend Routes
+
+https://user-images.githubusercontent.com/106410591/204055946-4cbef25a-805d-4b9b-9f41-c38f4967ce52.mp4
+
+
 ## License
 
 
