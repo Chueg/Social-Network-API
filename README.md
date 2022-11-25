@@ -4,7 +4,7 @@
 
 ## Description
 
-The purpose of this project was to manage the backend of a social network database and be able to manage and create users, thoughts, and reactions.
+The purpose of this project was to manage the backend of a social network database and be able to manage and create users, thoughts, and reactions. There were some complications but in the end all of the routes managed to work successfully.
 
 ## Table of Contents
 
